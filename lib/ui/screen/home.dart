@@ -1,4 +1,5 @@
 import 'package:city_scape/ui/screen/chat.dart';
+import 'package:city_scape/ui/screen/setting.dart';
 import 'package:city_scape/ui/views/home.dart';
 import 'package:city_scape/ui/views/map.dart';
 import 'package:city_scape/ui/views/quiz.dart';
@@ -25,6 +26,12 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.chat_sharp),
             onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const ChatPage()));
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingPage()));
             },
           ),
         ],
