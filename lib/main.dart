@@ -1,8 +1,25 @@
+import 'package:city_scape/blocs/user_cubit.dart';
+import 'package:city_scape/repositories/preferences_repository.dart';
+import 'package:city_scape/ui/screen/connexion.dart';
 import 'package:city_scape/ui/screen/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(const MyApp());
+  // Pour pouvoir utiliser les SharePreferences avant le runApp
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Instanciation du Cubit
+  final UserCubit userCubit = UserCubit(PreferencesRepository());
+  // Chargement de l'utilisateur
+  userCubit.loadUser();
+
+  runApp(
+      BlocProvider<UserCubit>(
+        create: (_) => userCubit,
+        child: const MyApp(),
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +35,20 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellowAccent),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: FutureBuilder(
+        future: PreferencesRepository().loadUser(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(), // Affiche un loading
+              ),
+            );
+          } else {
+            return snapshot.data?.name != "" ? const MyHomePage() : const ConnexionPage();
+          }
+        },
+      ),
     );
   }
 }

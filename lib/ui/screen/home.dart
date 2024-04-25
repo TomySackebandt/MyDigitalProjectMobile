@@ -1,4 +1,3 @@
-
 import 'package:city_scape/ui/screen/chat.dart';
 import 'package:city_scape/ui/views/home.dart';
 import 'package:city_scape/ui/views/map.dart';
@@ -6,9 +5,7 @@ import 'package:city_scape/ui/views/quiz.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
