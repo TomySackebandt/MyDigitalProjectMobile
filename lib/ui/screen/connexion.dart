@@ -1,3 +1,4 @@
+import 'package:city_scape/repositories/login_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,6 +15,8 @@ class ConnexionPage extends StatefulWidget {
 
 class _ConnexionPageState extends State<ConnexionPage> {
   final _formKey = GlobalKey<FormState>();
+  var loginRepo = LoginRepository();
+  var email = "";
 
   final myController = TextEditingController();
 
@@ -42,6 +45,7 @@ class _ConnexionPageState extends State<ConnexionPage> {
                     // code when the user saves the form.
                   },
                   validator: (String? value) {
+                    email = value ?? "";
                     return (value != null && !value.contains('@')) ? 'Email invalide' : null;
                   },
                 ),
@@ -60,12 +64,17 @@ class _ConnexionPageState extends State<ConnexionPage> {
                   },
                 ),
               FloatingActionButton.extended(
-                onPressed: (){
-                  context.read<UserCubit>().saveUser(User("joe", 7));
+                heroTag: "loginBtn",
+                onPressed: () async {
+                  if(await loginRepo.verifLogin()){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyHomePage()));
+                  }
+                  context.read<UserCubit>().saveUser(User("TestUser   ", 1, email));
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyHomePage()));
+                  // print("test");
                 },
-                label: const Text('Add'),
-                icon: const Icon(Icons.add),
+                label: const Text('Login'),
+                icon: const Icon(Icons.person),
               )
             ],
             )

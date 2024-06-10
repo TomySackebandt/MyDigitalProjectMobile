@@ -7,7 +7,7 @@ class UserCubit extends Cubit<User>{
 
   final PreferencesRepository preferencesRepository;
 
-  UserCubit(this.preferencesRepository) : super(User("",0));
+  UserCubit(this.preferencesRepository) : super(User("",0,""));
 
   Future<void> loadUser() async {
     User user = await preferencesRepository.loadUser();
@@ -17,5 +17,10 @@ class UserCubit extends Cubit<User>{
   void saveUser(User user){
     preferencesRepository.saveUser(user);
     emit(user);
+  }
+
+  void deleteUser(){
+    preferencesRepository.saveUser(User("", 0, ""));
+    emit(User("", 0,""));
   }
 }

@@ -15,8 +15,9 @@ void main() {
   userCubit.loadUser();
 
   runApp(
-      BlocProvider<UserCubit>(
-        create: (_) => userCubit,
+    MultiBlocProvider(providers: [
+      BlocProvider<UserCubit>(create: (_) => userCubit),
+      ],
         child: const MyApp(),
       )
   );
@@ -30,9 +31,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'City Scape',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellowAccent),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orangeAccent),
         useMaterial3: true,
       ),
       home: FutureBuilder(
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
               ),
             );
           } else {
-            return snapshot.data?.name != "" ? const MyHomePage() : const ConnexionPage();
+            return snapshot.data?.firstname != "" ? const MyHomePage() : const ConnexionPage();
           }
         },
       ),

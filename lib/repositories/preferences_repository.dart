@@ -16,8 +16,7 @@ class PreferencesRepository{
       final user =  jsonDecode(prefs.getString('user')?? "");
       return User.fromJson(user as Map<String, dynamic>);
     }else{
-      return User("", 0);
+      return User("", 0,"");
     }
-
   }
 }
