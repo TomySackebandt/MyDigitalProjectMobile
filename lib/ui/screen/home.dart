@@ -5,6 +5,8 @@ import 'package:city_scape/ui/views/map.dart';
 import 'package:city_scape/ui/views/quiz.dart';
 import 'package:flutter/material.dart';
 
+import 'chat_screen.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -25,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
               icon: Icon(Icons.chat_sharp),
             onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ChatPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(channelName: 'roomtest',)));
             },
           ),
           IconButton(
